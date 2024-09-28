@@ -131,28 +131,28 @@ const Home = () => {
   return (
     <div className="flex mt-20">
       <Sidebar />
-      <div className="h-[calc(100vh-6.625rem)] overflow-y-scroll overflow-x-hidden">
-        <InfiniteScroll
-          dataLength={infiniteData.length} // Important field to render the next data
-          next={fetchDataForInfinite} // Function to call for loading more data
-          hasMore={hasMore} // Determines if more data can be loaded
-          loader={<h4>Loading...</h4>} // Loader component
-          endMessage={
-            <p style={{ textAlign: "center" }}>No more videos to load</p>
-          } // Message when no more data is available
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5">
-            {loading ? (
-              <Loading />
-            ) : (
-              infiniteData.map((item) => {
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="h-[calc(100vh-6.625rem)] overflow-y-scroll overflow-x-hidden">
+          <InfiniteScroll
+            dataLength={infiniteData.length} // Important field to render the next data
+            next={fetchDataForInfinite} // Function to call for loading more data
+            hasMore={hasMore} // Determines if more data can be loaded
+            // loader={<h4>Loading...</h4>} // Loader component
+            endMessage={
+              <p style={{ textAlign: "center" }}>No more videos to load</p>
+            } // Message when no more data is available
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5">
+              {infiniteData.map((item) => {
                 if (item.type !== "video") return null; // Only render video items
                 return <Video key={item.id} video={item?.video} />;
-              })
-            )}
-          </div>
-        </InfiniteScroll>
-      </div>
+              })}
+            </div>
+          </InfiniteScroll>
+        </div>
+      )}
     </div>
   );
 };
